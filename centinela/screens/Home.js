@@ -12,13 +12,13 @@ export default function Home(props) {
             style={styles.buttonImage}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Usuario')} style={styles.buttonContainer}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('InfoUsuario')} style={styles.buttonContainer}>
           <Image
             source={require('../assets/userB.png')}
             style={styles.buttonImage}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Carro')} style={styles.buttonContainer}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('InfoCarro')} style={styles.buttonContainer}>
           <Image
             source={require('../assets/iconoCarro.png')}
             style={styles.buttonImage}

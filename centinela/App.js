@@ -9,6 +9,8 @@ import RegisterUser from './screens/RegisterUser';
 import RegisterUser2 from './screens/RegisterUser2';
 import Contacto from './screens/Contacto';
 import Carro from './screens/Carro';
+import InfoUsuario from './screens/InfoUsuario';
+import InfoCarro from './screens/InfoCarro';
 
 
 export default function App() {
@@ -71,6 +73,26 @@ function MyStack() {
       <Stack.Screen name="Home" component={Home}  options={
         {
           title:'Inicio',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      }/>
+      <Stack.Screen name="InfoUsuario" component={InfoUsuario}  options={
+        {
+          title:'Datos Del Usuario',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      }/>
+        <Stack.Screen name="InfoCarro" component={InfoCarro}  options={
+        {
+          title:'Datos Del Usuario',
           headerTintColor:'white',
           headerTitleAlign:'center',
           headerStyle:{
