@@ -14,7 +14,7 @@ export default function RegisterUser(props) {
         try{
             await createUserWithEmailAndPassword(auth,email,password)
             Alert.alert('Registrando usuario','accediendo...')
-            props.navigation.navigate('Home')
+            props.navigation.navigate('RegisterUser2')
         }catch(error){
             console.log(error)
             Alert.alert('Error','No se pudo registrar el usuario')

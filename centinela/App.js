@@ -16,7 +16,26 @@ const Stack = createStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      
+      <Stack.Screen name="Login" component={Login} options={
+        {
+          title:'Inicio de Sesión',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      }/>
+     <Stack.Screen name="RegisterUser" component={RegisterUser} options={
+        {
+          title:'Registro de Nuevo Usuario',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      } />
       <Stack.Screen name="RegisterUser2" component={RegisterUser2} options={
         {
           title:'Datos extra del usuario',
