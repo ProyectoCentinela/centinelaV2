@@ -49,7 +49,7 @@ export default function RegisterUser(props) {
         });
 
         Alert.alert('Registro exitoso', 'Accediendo a la siguiente sección');
-        props.navigation.navigate('Home');
+        props.navigation.navigate('Contacto');
       }
     } catch (error) {
       Alert.alert('Error', 'No se pudo hacer el registro');

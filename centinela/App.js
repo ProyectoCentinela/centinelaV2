@@ -7,6 +7,8 @@ import Login from './screens/Login';
 import Home from './screens/Home';
 import RegisterUser from './screens/RegisterUser';
 import RegisterUser2 from './screens/RegisterUser2';
+import Contacto from './screens/Contacto';
+import Carro from './screens/Carro';
 
 
 export default function App() {
@@ -46,6 +48,26 @@ function MyStack() {
           }
         }
       } />
+      <Stack.Screen name="Contacto" component={Contacto}  options={
+        {
+          title:'Registro de Contacto de Emergencia',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      }/>
+      <Stack.Screen name="Carro" component={Carro}  options={
+        {
+          title:'Registro de Contacto de Emergencia',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      }/>
       <Stack.Screen name="Home" component={Home}  options={
         {
           title:'Inicio',
@@ -56,6 +78,8 @@ function MyStack() {
           }
         }
       }/>
+      
+   
     </Stack.Navigator>
   );
 }
