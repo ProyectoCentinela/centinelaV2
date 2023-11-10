@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Login from './screens/Login';
 import Home from './screens/Home';
 import RegisterUser from './screens/RegisterUser';
+import RegisterUser2 from './screens/RegisterUser2';
 
 
 export default function App() {
@@ -15,19 +16,10 @@ const Stack = createStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={Login} options={
+      
+      <Stack.Screen name="RegisterUser2" component={RegisterUser2} options={
         {
-          title:'Inicio de Sesión',
-          headerTintColor:'white',
-          headerTitleAlign:'center',
-          headerStyle:{
-            backgroundColor:'#365B6D'
-          }
-        }
-      }/>
-     <Stack.Screen name="RegisterUser" component={RegisterUser} options={
-        {
-          title:'Registro de Nuevo Usuario',
+          title:'Datos extra del usuario',
           headerTintColor:'white',
           headerTitleAlign:'center',
           headerStyle:{
