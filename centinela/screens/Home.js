@@ -1,9 +1,25 @@
-import { View, StyleSheet, Image, Alert ,TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Image, Alert, TouchableOpacity, Text } from 'react-native';
 import Swiper from 'react-native-swiper/src';
-
+import * as Location from 'expo-location';
 
 export default function Home(props) {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permiso para acceder a la ubicación denegado');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.carouselContainer}>
@@ -21,30 +37,24 @@ export default function Home(props) {
       </View>
       <View style={styles.barra}>
         <TouchableOpacity onPress={() => Alert.alert('Emergencia', 'Enviando tu ubicación')} style={styles.buttonContainer}>
-          <Image
-            source={require('../assets/advertencia.png')}
-            style={styles.buttonImage}
-          />
+          <Image source={require('../assets/advertencia.png')} style={styles.buttonImage} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigation.navigate('InfoUsuario')} style={styles.buttonContainer}>
-          <Image
-            source={require('../assets/userB.png')}
-            style={styles.buttonImage}
-          />
+          <Image source={require('../assets/userB.png')} style={styles.buttonImage} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigation.navigate('InfoCarro')} style={styles.buttonContainer}>
-          <Image
-            source={require('../assets/iconoCarro.png')}
-            style={styles.buttonImage}
-          />
+          <Image source={require('../assets/iconoCarro.png')} style={styles.buttonImage} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigation.navigate('')} style={styles.buttonContainer}>
-          <Image
-            source={require('../assets/notificacion.png')}
-            style={styles.buttonImage}
-          />
+          <Image source={require('../assets/notificacion.png')} style={styles.buttonImage} />
         </TouchableOpacity>
       </View>
+      {location && (
+        <View style={styles.locationContainer}>
+          <Text>Latitud: {location.coords.latitude}</Text>
+          <Text>Longitud: {location.coords.longitude}</Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -93,5 +103,13 @@ const styles = StyleSheet.create({
   buttonImage: {
     width: 30,
     height: 30,
+  },
+  locationContainer: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    padding: 10,
+    borderRadius: 10,
   },
 });
