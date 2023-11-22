@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Alert, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Image, Alert, TouchableOpacity, Text, Linking } from 'react-native';
 import Swiper from 'react-native-swiper/src';
 import * as Location from 'expo-location';
 
@@ -20,6 +20,23 @@ export default function Home(props) {
     })();
   }, []);
 
+  const sendEmergencySMS = () => {
+    if (location) {
+      const phoneNumber = '7711516662'; // Reemplaza con el número de teléfono al que deseas enviar el SMS
+      const message = `¡Emergencia! Mi ubicación actual es: https://www.google.com/maps?q=${location.coords.latitude},${location.coords.longitude}`;
+
+      // Usar Linking para abrir la aplicación de mensajes con el número y mensaje predefinidos
+      const url = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+      Linking.openURL(url).catch((err) => {
+        console.error('Error al abrir la aplicación de mensajes', err);
+        Alert.alert('Error', 'Error al abrir la aplicación de mensajes');
+      });
+    } else {
+      Alert.alert('Error', 'No se pudo obtener la ubicación');
+    }
+  };
+
+
   return (
     <View style={styles.container}>
       <View style={styles.carouselContainer}>
@@ -36,7 +53,7 @@ export default function Home(props) {
         </Swiper>
       </View>
       <View style={styles.barra}>
-        <TouchableOpacity onPress={() => Alert.alert('Emergencia', 'Enviando tu ubicación')} style={styles.buttonContainer}>
+      <TouchableOpacity onPress={sendEmergencySMS} style={styles.buttonContainer}>
           <Image source={require('../assets/advertencia.png')} style={styles.buttonImage} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigation.navigate('InfoUsuario')} style={styles.buttonContainer}>
