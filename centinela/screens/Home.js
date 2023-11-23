@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   carouselContainer: {
     width: '100%',
-    height: '30%',
+    height: '50%',
   },
   wrapper: {},
   slide: {

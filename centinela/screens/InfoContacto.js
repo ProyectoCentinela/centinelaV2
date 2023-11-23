@@ -49,7 +49,7 @@ export default function InfoContacto({ navigation }) {
         <View style={styles.vertical}>
           <Image
             style={styles.img}
-            source={require("../assets/iconoCarro.png")}
+            source={require("../assets/sos.png")}
           />
           {/* Puedes mostrar la foto del vehículo aquí */}
         </View>

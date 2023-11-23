@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, TextInput} from 'react-native';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { getAuth, updatePassword } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { useIsFocused } from '@react-navigation/native';
 import appFirebase from '../credenciales';
 
@@ -38,15 +38,7 @@ export default function PerfilUsuario({ navigation }) {
     fetchUserData();
   }, [isFocused]);
 
-  const handleChangePassword = async () => {
-    try {
-      await updatePassword(auth.currentUser, newPassword);
-      console.log('Contraseña actualizada con éxito');
-      setNewPassword(''); // Limpiar el campo de nueva contraseña
-    } catch (error) {
-      console.error('Error al actualizar la contraseña', error);
-    }
-  };
+ 
 
   return (
     <ScrollView>
@@ -70,6 +62,7 @@ export default function PerfilUsuario({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('InfoContacto')}>
           <Text style={styles.buttonText}>Contacto de emergencia</Text>
+
         </TouchableOpacity>
 
         
