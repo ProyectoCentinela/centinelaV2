@@ -66,12 +66,7 @@ export default function Home(props) {
           <Image source={require('../assets/notificacion.png')} style={styles.buttonImage} />
         </TouchableOpacity>
       </View>
-      {location && (
-        <View style={styles.locationContainer}>
-          <Text>Latitud: {location.coords.latitude}</Text>
-          <Text>Longitud: {location.coords.longitude}</Text>
-        </View>
-      )}
+      
     </View>
   );
 }

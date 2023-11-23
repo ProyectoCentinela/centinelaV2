@@ -11,6 +11,7 @@ import Contacto from './screens/Contacto';
 import Carro from './screens/Carro';
 import InfoUsuario from './screens/InfoUsuario';
 import InfoCarro from './screens/InfoCarro';
+import InfoContacto from './screens/InfoContacto';
 
 
 export default function App() {
@@ -93,6 +94,16 @@ function MyStack() {
         <Stack.Screen name="InfoCarro" component={InfoCarro}  options={
         {
           title:'Datos Del Usuario',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      }/>
+      <Stack.Screen name="InfoContacto" component={InfoContacto}  options={
+        {
+          title:'Datos Del Contacto De Emergencia',
           headerTintColor:'white',
           headerTitleAlign:'center',
           headerStyle:{

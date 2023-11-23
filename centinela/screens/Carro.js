@@ -104,7 +104,7 @@ export default function Carro(props) {
           value={state.matricula}
         />
         <TouchableOpacity style={styles.boton} onPress={saveData}>
-          <Text style={styles.textButton}>Registrar Datos de su vehiculo</Text>
+          <Text style={styles.textButton}>Guardar datos</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
   boton: {
     backgroundColor: '#365B6D',
     fontVariant: 'bold',
-    width: 140,
-    height: 40,
+    width: 160,
+    height: 70,
     alignContent: 'center',
     borderRadius: 15
   },

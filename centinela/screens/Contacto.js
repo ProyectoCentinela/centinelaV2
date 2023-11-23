@@ -98,7 +98,7 @@ export default function Contacto(props) {
           value={state.parentescoContacto}
         />
         <TouchableOpacity style={styles.boton} onPress={saveData}>
-          <Text style={styles.textButton}>Registrar Datos de contacto de Emergencia</Text>
+          <Text style={styles.textButton}>Guardar datos</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   boton: {
     backgroundColor: '#365B6D',
     fontVariant: 'bold',
-    width: 140,
+    width: 200,
     height: 40,
     alignContent: 'center',
     borderRadius: 15

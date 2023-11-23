@@ -49,7 +49,7 @@ export default function InfoCarro({ navigation }) {
         <View style={styles.vertical}>
           <Image
             style={styles.img}
-            source={require("../assets/user.png")}
+            source={require("../assets/iconoCarro.png")}
           />
           {/* Puedes mostrar la foto del vehículo aquí */}
         </View>
@@ -59,8 +59,11 @@ export default function InfoCarro({ navigation }) {
         <Text style={styles.text}>Vin: {vehicleInfo.vin}</Text>
         <Text style={styles.text}>Matricula: {vehicleInfo.matricula}</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RegistroCarro')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('')}>
           <Text style={styles.buttonText}>Editar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RegistroCarro')}>
+          <Text style={styles.buttonText}>Conectar</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

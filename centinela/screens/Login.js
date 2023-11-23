@@ -71,10 +71,11 @@ const styles = StyleSheet.create({
   boton:{
     backgroundColor:'#365B6D',
     fontVariant: 'bold',
-    width:140,
+    width:160,
     height:40,
     alignContent:'center',
-    borderRadius:15
+    borderRadius:15,
+    marginTop:20,
   }, 
   textButton:{
     fontSize:25,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, Button, ScrollView, TouchableOpacity, TextInput} from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, TextInput} from 'react-native';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { getAuth, updatePassword } from 'firebase/auth';
 import { useIsFocused } from '@react-navigation/native';
@@ -65,24 +65,14 @@ export default function PerfilUsuario({ navigation }) {
         <Text style={styles.text}>Contraseña: *********</Text>
         <Text style={styles.text}>Teléfono: {userInfo.telefono}</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RegistroCarro')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('')}>
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('InfoContacto')}>
+          <Text style={styles.buttonText}>Contacto de emergencia</Text>
+        </TouchableOpacity>
 
-        <View style={styles.changePasswordContainer}>
-          <Text style={styles.changePasswordLabel}>Nueva Contraseña:</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry
-            placeholder="Ingrese nueva contraseña"
-            value={newPassword}
-            onChangeText={(text) => setNewPassword(text)}
-          />
-          <Button
-            title="Cambiar Contraseña"
-            onPress={handleChangePassword}
-          />
-        </View>
+        
       </View>
     </ScrollView>
   );
