@@ -12,6 +12,10 @@ import Carro from './screens/Carro';
 import InfoUsuario from './screens/InfoUsuario';
 import InfoCarro from './screens/InfoCarro';
 import InfoContacto from './screens/InfoContacto';
+import EditarUsuario from './screens/EditarUsuario';
+import EditarCarro from './screens/EditarCarro';
+import EditarEmergencia from './screens/EditarEmergencia';
+import EstadoCarro from './screens/EstadoCarro';
 
 
 export default function App() {
@@ -104,6 +108,46 @@ function MyStack() {
       <Stack.Screen name="InfoContacto" component={InfoContacto}  options={
         {
           title:'Datos Del Contacto De Emergencia',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      }/>
+      <Stack.Screen name="EditarUsuario" component={EditarUsuario}  options={
+        {
+          title:'Editar información del usuario',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      }/>
+      <Stack.Screen name="EditarEmergencia" component={EditarEmergencia}  options={
+        {
+          title:'Editar información del contacto',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      }/>
+      <Stack.Screen name="EditarCarro" component={EditarCarro}  options={
+        {
+          title:'Editar información del contacto',
+          headerTintColor:'white',
+          headerTitleAlign:'center',
+          headerStyle:{
+            backgroundColor:'#365B6D'
+          }
+        }
+      }/>
+       <Stack.Screen name="EstadoCarro" component={EstadoCarro}  options={
+        {
+          title:'Estado del vehiculo',
           headerTintColor:'white',
           headerTitleAlign:'center',
           headerStyle:{

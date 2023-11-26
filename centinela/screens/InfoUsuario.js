@@ -57,7 +57,7 @@ export default function PerfilUsuario({ navigation }) {
         <Text style={styles.text}>Contraseña: *********</Text>
         <Text style={styles.text}>Teléfono: {userInfo.telefono}</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditarUsuario')}>
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('InfoContacto')}>

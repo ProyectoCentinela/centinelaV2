@@ -59,7 +59,7 @@ export default function InfoContacto({ navigation }) {
         <Text style={styles.text}>Telefono: {ContactoInfo.telefonoContacto}</Text>
         
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditarEmergencia')}>
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
        

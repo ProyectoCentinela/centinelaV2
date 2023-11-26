@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert, ScrollView } from 'react-native';
-import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import { useIsFocused } from '@react-navigation/native';
 import appFirebase from '../credenciales';
 
@@ -13,22 +13,36 @@ export default function RegisterUser(props) {
     apellido: '',
     usuario: '',
     telefono: '',
-    direccion: ''
+    direccion: '',
   };
 
   const [state, setState] = useState(initialState);
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    const cargarDatosUsuario = async () => {
+      try {
+        const auth = getAuth();
+        const user = auth.currentUser;
 
-    if (!user && isFocused) {
-      // Si el usuario no está autenticado y la pantalla está enfocada,
-      // redirige a la pantalla de inicio de sesión
-      props.navigation.navigate('Login');
-    }
-  }, [isFocused, props.navigation]);
+        if (user) {
+          const userId = user.uid;
+
+          // Obtener datos del usuario desde Firestore usando el ID del usuario
+          const userDoc = await getDoc(doc(db, 'Usuarios', userId));
+
+          if (userDoc.exists()) {
+            // Si el documento existe, cargar los datos en el estado
+            setState({ ...userDoc.data() });
+          }
+        }
+      } catch (error) {
+        console.error('Error al cargar los datos del usuario:', error);
+      }
+    };
+
+    cargarDatosUsuario();
+  }, [isFocused]);
 
   const handleChangeText = (value, name) => {
     setState({ ...state, [name]: value });
@@ -40,19 +54,19 @@ export default function RegisterUser(props) {
       const user = auth.currentUser;
 
       if (user) {
-        // El usuario está autenticado, puedes acceder a user.uid
         const userId = user.uid;
 
-        // Ahora, guarda los datos en la colección de Usuarios usando el ID del usuario
-        await setDoc(doc(db, 'Usuarios', userId), {
-          ...state
+        // Actualizar datos en Firestore usando el ID del usuario
+        await updateDoc(doc(db, 'Usuarios', userId), {
+          ...state,
         });
 
-        Alert.alert('Registro exitoso', 'Accediendo a la siguiente sección');
-        props.navigation.navigate('Contacto');
+        Alert.alert('Datos actualizados', 'Accediendo a la siguiente sección');
+        props.navigation.navigate('Home');
       }
     } catch (error) {
-      Alert.alert('Error', 'No se pudo hacer el registro');
+      console.error('Error al guardar los datos:', error);
+      Alert.alert('Error', 'No se pudo guardar los datos');
     }
   };
 
@@ -60,7 +74,7 @@ export default function RegisterUser(props) {
     <ScrollView>
       <View style={styles.container}>
         <Image style={styles.img} source={require('../assets/user.png')} />
-        <Text style={styles.text}>Editar información del usuario</Text>
+        <Text style={styles.text}>Datos obligatorios</Text>
         <TextInput
           style={styles.input}
           placeholder="Nombre"
@@ -104,19 +118,19 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     marginBottom: 15,
-    borderRadius: 25
+    borderRadius: 25,
   },
   container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20
+    padding: 20,
   },
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 30
+    marginBottom: 30,
   },
   input: {
     width: '100%',
@@ -125,7 +139,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     marginBottom: 20,
     padding: 10,
-    borderRadius: 20
+    borderRadius: 20,
   },
   boton: {
     backgroundColor: '#365B6D',
@@ -133,12 +147,12 @@ const styles = StyleSheet.create({
     width: 145,
     height: 70,
     alignContent: 'center',
-    borderRadius: 15
+    borderRadius: 15,
   },
   textButton: {
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: 'white'
-  }
+    color: 'white',
+  },
 });

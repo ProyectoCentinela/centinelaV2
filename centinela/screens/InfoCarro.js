@@ -59,10 +59,13 @@ export default function InfoCarro({ navigation }) {
         <Text style={styles.text}>Vin: {vehicleInfo.vin}</Text>
         <Text style={styles.text}>Matricula: {vehicleInfo.matricula}</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditarCarro')}>
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RegistroCarro')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EstadoCarro')}>
+          <Text style={styles.buttonText}>Estado del carro</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('')}>
           <Text style={styles.buttonText}>Conectar</Text>
         </TouchableOpacity>
       </View>
