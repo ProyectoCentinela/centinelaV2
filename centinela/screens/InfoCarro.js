@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'rea
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
 import appFirebase from '../credenciales';
 
 const db = getFirestore(appFirebase);
@@ -25,7 +26,6 @@ export default function InfoCarro({ navigation }) {
 
           if (userDoc.exists()) {
             const userData = userDoc.data();
-            // Comprobar si la subcolección "vehiculo" existe en el documento del usuario
             if (userData.vehiculo) {
               setVehicleInfo(userData.vehiculo);
             } else {
@@ -43,6 +43,25 @@ export default function InfoCarro({ navigation }) {
     fetchVehicleData();
   }, [isFocused]);
 
+  const handleConnect = async () => {
+    try {
+      const response = await axios.get('http://192.168.0.170:5000/ruta_de_conexion');
+      
+      // Accede a los datos en la respuesta
+      const datosDelServidor = response.data;
+      console.log('Datos del servidor:', datosDelServidor);
+  
+      // Pasa los datos a la pantalla EstadoCarro
+      navigation.navigate('EstadoCarro', {
+        temperatura: datosDelServidor.temperatura,
+        aceite: datosDelServidor.aceite,
+        anticongelante: datosDelServidor.anticongelante,
+      });
+    } catch (error) {
+      console.error('Error al conectar con el servidor Python', error);
+    }
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -51,7 +70,6 @@ export default function InfoCarro({ navigation }) {
             style={styles.img}
             source={require("../assets/InfoCarro.png")}
           />
-          {/* Puedes mostrar la foto del vehículo aquí */}
         </View>
         <Text style={styles.text}>Marca: {vehicleInfo.marca}</Text>
         <Text style={styles.text}>Modelo: {vehicleInfo.modelo}</Text>
@@ -65,7 +83,7 @@ export default function InfoCarro({ navigation }) {
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EstadoCarro')}>
           <Text style={styles.buttonText}>Estado del carro</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('')}>
+        <TouchableOpacity style={styles.button} onPress={handleConnect}>
           <Text style={styles.buttonText}>Conectar</Text>
         </TouchableOpacity>
       </View>
