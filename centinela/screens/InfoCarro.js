@@ -46,7 +46,7 @@ const InfoCarro = ({ navigation }) => {
 
   const handleConnect = async () => {
     try {
-      const response = await axios.get('http://192.168.43.248:5000/ruta_de_conexion');
+      const response = await axios.get('http://10.0.30.34:5000/ruta_de_conexion');
       
       // Accede a los datos en la respuesta
       const datosDelServidor = response.data;
@@ -73,7 +73,7 @@ const InfoCarro = ({ navigation }) => {
         location = await Location.getCurrentPositionAsync({});
       }
   
-      await axios.get('http://192.168.43.248:5000/ruta_de_conexion', {
+      await axios.get('http://10.0.30.34:5000/ruta_de_conexion', {
   params: {
     accidente: true,
     latitude: location ? location.coords.latitude : null,

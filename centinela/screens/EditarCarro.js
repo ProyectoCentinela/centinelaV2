@@ -85,7 +85,7 @@ export default function Carro(props) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Image style={styles.img} source={require('../assets/user.png')} />
+        <Image style={styles.img} source={require('../assets/InfoCarro.png')} />
         <Text style={styles.text}>Datos de tu vehículo</Text>
         <TextInput
           style={styles.input}

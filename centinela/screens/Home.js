@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Alert, TouchableOpacity, Text, Linking } from 'react-native';
+import { View, StyleSheet, Alert, TouchableOpacity, Image, Text, Linking, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import Swiper from 'react-native-swiper/src';
 import * as Location from 'expo-location';
-import { WebView } from 'react-native-webview';
+
+import ImageZoom from 'react-native-image-pan-zoom';
 
 export default function Home(props) {
   const [location, setLocation] = useState(null);
@@ -23,10 +24,9 @@ export default function Home(props) {
 
   const sendEmergencySMS = () => {
     if (location) {
-      const phoneNumber = '7711516662'; // Reemplaza con el número de teléfono al que deseas enviar el SMS
+      const phoneNumber = '7711516662';
       const message = `¡Emergencia! Mi ubicación actual es: https://www.google.com/maps?q=${location.coords.latitude},${location.coords.longitude}`;
-
-      // Usar Linking para abrir la aplicación de mensajes con el número y mensaje predefinidos
+      
       const url = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
       Linking.openURL(url).catch((err) => {
         console.error('Error al abrir la aplicación de mensajes', err);
@@ -37,25 +37,40 @@ export default function Home(props) {
     }
   };
 
-
   return (
     <View style={styles.container}>
       <View style={styles.carouselContainer}>
         <Swiper style={styles.wrapper} showsButtons={true}>
-          <View style={styles.slide}>
-            <Image source={require('../assets/prueba1.jpg')} style={styles.image} />
+        <View style={styles.slide}>
+            <Image source={require('../assets/img1.jpg')} style={styles.image} />
           </View>
           <View style={styles.slide}>
-            <Image source={require('../assets/prueba2.jpg')} style={styles.image} />
+            <Image source={require('../assets/img2.jpg')} style={styles.image} />
           </View>
           <View style={styles.slide}>
-            <Image source={require('../assets/prueba3.jpg')} style={styles.image} />
+            <Image source={require('../assets/img3.jpg')} style={styles.image} />
+          </View>
+          <View style={styles.slide}>
+            <Image source={require('../assets/img4.jpg')} style={styles.image} />
           </View>
         </Swiper>
       </View>
-      
+      <View style={styles.slide}>
+        <TouchableWithoutFeedback>
+          <ImageZoom
+            cropWidth={300}
+            cropHeight={300}
+            imageWidth={200}
+            imageHeight={200}
+          >
+            <View style={styles.mapContainer}>
+              <Image source={require('../assets/map.png')} style={styles.image2} />
+            </View>
+          </ImageZoom>
+        </TouchableWithoutFeedback>
+      </View>
       <View style={styles.barra}>
-      <TouchableOpacity onPress={sendEmergencySMS} style={styles.buttonContainer}>
+        <TouchableOpacity onPress={sendEmergencySMS} style={styles.buttonContainer}>
           <Image source={require('../assets/advertencia.png')} style={styles.buttonImage} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigation.navigate('InfoUsuario')} style={styles.buttonContainer}>
@@ -68,7 +83,6 @@ export default function Home(props) {
           <Image source={require('../assets/notificacion.png')} style={styles.buttonImage} />
         </TouchableOpacity>
       </View>
-      
     </View>
   );
 }
@@ -83,14 +97,28 @@ const styles = StyleSheet.create({
   carouselContainer: {
     width: '100%',
     height: '50%',
+    marginTop: 0, // Ajusta según tus necesidades para pegar el carrusel arriba
+  },
+
+  image: {
+    width: '50%', // Ajusta según tus necesidades
+    height: '50%', // Ajusta según tus necesidades
+    resizeMode: 'cover',
   },
   wrapper: {},
   slide: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+
   },
-  image: {
+  mapContainer: {
+    width: '100%',
+    aspectRatio: 1,
+    overflow: 'hidden',
+  },
+ 
+  image2: {
     width: '100%',
     height: '100%',
     resizeMode: 'cover',

@@ -37,7 +37,7 @@ function MyStack() {
       }/>
      <Stack.Screen name="RegisterUser" component={RegisterUser} options={
         {
-          title:'Registro de Nuevo Usuario',
+          title:'Registro cuenta de usuario',
           headerTintColor:'white',
           headerTitleAlign:'center',
           headerStyle:{
@@ -47,7 +47,7 @@ function MyStack() {
       } />
       <Stack.Screen name="RegisterUser2" component={RegisterUser2} options={
         {
-          title:'Datos extra del usuario',
+          title:'Registro datos del usuario',
           headerTintColor:'white',
           headerTitleAlign:'center',
           headerStyle:{
@@ -97,7 +97,7 @@ function MyStack() {
       }/>
         <Stack.Screen name="InfoCarro" component={InfoCarro}  options={
         {
-          title:'Datos Del Usuario',
+          title:'Datos Del vehiculo',
           headerTintColor:'white',
           headerTitleAlign:'center',
           headerStyle:{

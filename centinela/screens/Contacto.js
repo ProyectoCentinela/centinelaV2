@@ -70,7 +70,7 @@ export default function Contacto(props) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Image style={styles.img} source={require('../assets/user.png')} />
+        <Image style={styles.img} source={require('../assets/emergencia.png')} />
         <Text style={styles.text}>Datos de tu contacto de emergencia</Text>
         <Text style={styles.text}>En caso de una emergencia, será la persona a ser notificada</Text>
         <TextInput

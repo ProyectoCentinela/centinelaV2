@@ -56,7 +56,7 @@ const EstadoCarro = ({ route }) => {
             datosErrores: estadoCarro,
           })
         }>
-        <Text style={styles.buttonText}>Home</Text>
+
       </TouchableOpacity>
 
     </View>
