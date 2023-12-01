@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const EstadoCarro = ({ route }) => {
@@ -34,7 +34,10 @@ const EstadoCarro = ({ route }) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.text}>Estado del vehiculo</Text>
+      <Image style={styles.img} source={require('../assets/estado.png')} />
       <View style={styles.row}>
+      
         <Text style={styles.label}>Temperatura:</Text>
         <View style={[styles.circle, { backgroundColor: getColor(estadoCarro.temperatura) }]} />
         <Text style={styles.value}>{estadoCarro.temperatura}</Text>
@@ -64,8 +67,46 @@ const EstadoCarro = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
+  img: {
+    width: 200,
+    height: 200,
+    marginBottom: 15,
+    borderRadius: 25
+  },
   container: {
-    padding: 20,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 30
+  },
+  input: {
+    width: '100%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: 'gray',
+    marginBottom: 20,
+    padding: 10,
+    borderRadius: 20
+  },
+  boton: {
+    backgroundColor: '#365B6D',
+    fontVariant: 'bold',
+    width: 160,
+    height: 70,
+    alignContent: 'center',
+    borderRadius: 15
+  },
+  textButton: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white'
   },
   row: {
     flexDirection: 'row',
