@@ -2,14 +2,51 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Alert, TouchableOpacity, Image, Text, Linking, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import Swiper from 'react-native-swiper/src';
 import * as Location from 'expo-location';
-
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { useIsFocused } from '@react-navigation/native';
+import appFirebase from '../credenciales';
 import ImageZoom from 'react-native-image-pan-zoom';
+
+const db = getFirestore(appFirebase);
 
 export default function Home(props) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [contactoInfo, setContactoInfo] = useState({});
+  const auth = getAuth();
+  const isFocused = useIsFocused();
 
   useEffect(() => {
+    const fetchContactoData = async () => {
+      try {
+        const user = auth.currentUser;
+
+        if (user) {
+          const userId = user.uid;
+
+          const userDocRef = doc(db, 'Usuarios', userId);
+          const userDoc = await getDoc(userDocRef);
+
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            // Comprobar si la subcolección "vehiculo" existe en el documento del usuario
+            if (userData.contactoEmergencia) {
+              setContactoInfo(userData.contactoEmergencia);
+            } else {
+              console.error('No se encontró la información del contacto de emergencia');
+            }
+          } else {
+            console.error('No se encontró el registro del contacto de emergencia');
+          }
+        }
+      } catch (error) {
+        console.error('Error al obtener la información del contacto de emergencia', error);
+      }
+    };
+
+    fetchContactoData();
+
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -20,18 +57,23 @@ export default function Home(props) {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
     })();
-  }, []);
+  }, [isFocused]);
 
-  const sendEmergencySMS = () => {
+  const sendEmergencySMS = async () => {
     if (location) {
-      const phoneNumber = '7711516662';
-      const message = `¡Emergencia! Mi ubicación actual es: https://www.google.com/maps?q=${location.coords.latitude},${location.coords.longitude}`;
-      
-      const url = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
-      Linking.openURL(url).catch((err) => {
-        console.error('Error al abrir la aplicación de mensajes', err);
-        Alert.alert('Error', 'Error al abrir la aplicación de mensajes');
-      });
+      try {
+        // Resto del código sigue igual
+        const phoneNumber = contactoInfo.telefonoContacto;
+        const message = `¡Emergencia! Mi ubicación actual es: https://www.google.com/maps?q=${location.coords.latitude},${location.coords.longitude}`;
+        
+        const url = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+        Linking.openURL(url).catch((err) => {
+          console.error('Error al abrir la aplicación de mensajes', err);
+          Alert.alert('Error', 'Error al abrir la aplicación de mensajes');
+        });
+      } catch (error) {
+        console.error('Error al obtener la información del contacto de emergnecia', error);
+      }
     } else {
       Alert.alert('Error', 'No se pudo obtener la ubicación');
     }
@@ -53,7 +95,7 @@ export default function Home(props) {
           <View style={styles.slide}>
             <Image source={require('../assets/img4.jpg')} style={styles.image} />
           </View>
-        </Swiper>
+          </Swiper>
       </View>
       <View style={styles.slide}>
         <TouchableWithoutFeedback>
