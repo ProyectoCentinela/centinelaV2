@@ -1,8 +1,24 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const EstadoCarro = ({ route }) => {
-  const { temperatura, aceite, anticongelante } = route.params;
+  const [estadoCarro, setEstadoCarro] = useState({
+    temperatura: 0,
+    aceite: 0,
+    anticongelante: 0,
+  });
+
+  const navigation = useNavigation();
+
+  const actualizarEstadoCarro = (nuevoEstado) => {
+    setEstadoCarro(nuevoEstado);
+  };
+
+  useEffect(() => {
+    const { temperatura, aceite, anticongelante } = route.params || {};
+    actualizarEstadoCarro({ temperatura: temperatura || 0, aceite: aceite || 0, anticongelante: anticongelante || 0 });
+  }, [route.params]);
 
   const getColor = (value) => {
     if (value >= 1 && value <= 3) {
@@ -20,20 +36,29 @@ const EstadoCarro = ({ route }) => {
     <View style={styles.container}>
       <View style={styles.row}>
         <Text style={styles.label}>Temperatura:</Text>
-        <View style={[styles.circle, { backgroundColor: getColor(temperatura) }]} />
-        <Text style={styles.value}>{temperatura}</Text>
+        <View style={[styles.circle, { backgroundColor: getColor(estadoCarro.temperatura) }]} />
+        <Text style={styles.value}>{estadoCarro.temperatura}</Text>
       </View>
       <View style={styles.row}>
         <Text style={styles.label}>Aceite:</Text>
-        <View style={[styles.circle, { backgroundColor: getColor(aceite) }]} />
-        <Text style={styles.value}>{aceite}</Text>
+        <View style={[styles.circle, { backgroundColor: getColor(estadoCarro.aceite) }]} />
+        <Text style={styles.value}>{estadoCarro.aceite}</Text>
       </View>
       <View style={styles.row}>
         <Text style={styles.label}>Anticongelante:</Text>
-        <View style={[styles.circle, { backgroundColor: getColor(anticongelante) }]} />
-        <Text style={styles.value}>{anticongelante}</Text>
+        <View style={[styles.circle, { backgroundColor: getColor(estadoCarro.anticongelante) }]} />
+        <Text style={styles.value}>{estadoCarro.anticongelante}</Text>
       </View>
-      {/* Resto de tu lógica para la pantalla EstadoCarro */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate('Home', {
+            datosErrores: estadoCarro,
+          })
+        }>
+        <Text style={styles.buttonText}>Home</Text>
+      </TouchableOpacity>
+
     </View>
   );
 };

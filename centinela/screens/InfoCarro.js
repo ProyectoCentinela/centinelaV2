@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import appFirebase from '../credenciales';
+import * as Location from 'expo-location';
 
 const db = getFirestore(appFirebase);
 
-export default function InfoCarro({ navigation }) {
+const InfoCarro = ({ navigation }) => {
   const [vehicleInfo, setVehicleInfo] = useState({});
   const auth = getAuth();
   const isFocused = useIsFocused();
@@ -62,6 +63,31 @@ export default function InfoCarro({ navigation }) {
     }
   };
 
+  const handleAccidente = async () => {
+    try {
+      // Obtener la ubicación actual del dispositivo
+      let location = null;
+      const { status } = await Location.requestForegroundPermissionsAsync();
+  
+      if (status === 'granted') {
+        location = await Location.getCurrentPositionAsync({});
+      }
+  
+      await axios.get('http://192.168.43.248:5000/ruta_de_conexion', {
+  params: {
+    accidente: true,
+    latitude: location ? location.coords.latitude : null,
+    longitude: location ? location.coords.longitude : null,
+  },
+});
+  
+      // Mostrar una alerta en la aplicación
+      Alert.alert('Ubicación Enviada', 'Tu ubicación ha sido enviada debido a un accidente.');
+    } catch (error) {
+      console.error('Error al enviar la solicitud de accidente', error);
+    }
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -80,16 +106,16 @@ export default function InfoCarro({ navigation }) {
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditarCarro')}>
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EstadoCarro')}>
-          <Text style={styles.buttonText}>Estado del carro</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleConnect}>
-          <Text style={styles.buttonText}>Conectar</Text>
+          <Text style={styles.buttonText}>Estado Del carro</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleAccidente}>
+          <Text style={styles.buttonText}>Accidente</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   vertical: {
@@ -117,7 +143,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 30,
   },
-  body: {},
   button: {
     backgroundColor: '#365B6D',
     width: 140,
@@ -132,3 +157,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default InfoCarro;
