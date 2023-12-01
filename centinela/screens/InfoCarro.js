@@ -45,7 +45,7 @@ export default function InfoCarro({ navigation }) {
 
   const handleConnect = async () => {
     try {
-      const response = await axios.get('http://192.168.0.170:5000/ruta_de_conexion');
+      const response = await axios.get('http://192.168.43.248:5000/ruta_de_conexion');
       
       // Accede a los datos en la respuesta
       const datosDelServidor = response.data;

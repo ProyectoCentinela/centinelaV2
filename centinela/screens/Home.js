@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image, Alert, TouchableOpacity, Text, Linking } from 'react-native';
 import Swiper from 'react-native-swiper/src';
 import * as Location from 'expo-location';
+import { WebView } from 'react-native-webview';
 
 export default function Home(props) {
   const [location, setLocation] = useState(null);
@@ -52,6 +53,7 @@ export default function Home(props) {
           </View>
         </Swiper>
       </View>
+      
       <View style={styles.barra}>
       <TouchableOpacity onPress={sendEmergencySMS} style={styles.buttonContainer}>
           <Image source={require('../assets/advertencia.png')} style={styles.buttonImage} />
