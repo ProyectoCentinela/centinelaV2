@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert, Scro
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useIsFocused } from '@react-navigation/native';
-import appFirebase from '../credenciales';
+import appFirebase from '../credenciales'; #hola 
 
 const db = getFirestore(appFirebase);
 
