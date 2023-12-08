@@ -6,7 +6,7 @@ import { useIsFocused } from '@react-navigation/native';
 import appFirebase from '../credenciales';
 
 const db = getFirestore(appFirebase);
-
+#Aura aqui estuvo
 export default function Carro(props) {
   const initialState = {
     marca: '',
