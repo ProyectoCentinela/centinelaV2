@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image,Alert } from 'react-native'
-
+#Validaciom con autentication
 import appFirebase from '../credenciales'
 import {getAuth,signInWithEmailAndPassword} from 'firebase/auth'
 const auth=getAuth(appFirebase)
