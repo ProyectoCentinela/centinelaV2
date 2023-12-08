@@ -7,7 +7,7 @@ import { getAuth } from 'firebase/auth';
 import { useIsFocused } from '@react-navigation/native';
 import appFirebase from '../credenciales';
 import ImageZoom from 'react-native-image-pan-zoom';
-
+#modificacion del carrusel de imagenes y barra inferior
 const db = getFirestore(appFirebase);
 
 export default function Home(props) {
